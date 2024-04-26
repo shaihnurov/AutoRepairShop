@@ -1,0 +1,86 @@
+﻿<UserControl x:Class="Diplom1.MVVM.View.InfoWorkShopView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Diplom1.MVVM.View"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:viewModel="clr-namespace:Diplom1.MVVM.ViewModel"
+             mc:Ignorable="d" d:Background="White" Style="{StaticResource Page_Style}"
+             d:DesignHeight="850" d:DesignWidth="1200">
+
+    <UserControl.DataContext>
+        <viewModel:InfoWorkShopViewModel/>
+    </UserControl.DataContext>
+
+    <ScrollViewer VerticalScrollBarVisibility="Hidden" Margin="0 80 0 0">
+        <Border>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.ColumnSpan="1">
+                    <TextBlock Text="{Binding GetMessage.Message}" HorizontalAlignment="Right" VerticalAlignment="Top"
+                   Foreground="{Binding GetMessage.TextColor}" TextWrapping="Wrap" Height="Auto"
+                   FontSize="20" FontWeight="Light" FontFamily="Montserrat" Grid.Row="0"/>
+                </StackPanel>
+
+                <Grid Grid.Row="0">
+                    <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Center">
+                        <Border BorderThickness="0.2" BorderBrush="Black" Background="Transparent" CornerRadius="20"
+                                            Margin="0 50 0 0" Style="{StaticResource BorderAnimation}" MinWidth="900" Height="280">
+                            <StackPanel Orientation="Horizontal">
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackPanel Grid.Row="0" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                        <Image Source="{Binding Image}" Width="200" Height="200" Grid.Column="0" Margin="20 20 0 0"/>
+
+                                        <Button Style="{StaticResource ButtonStyle}" Width="150" Height="30" Content="{Binding DataContext.ContentButtonImage, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                            Background="{Binding DataContext.BackgroundLoadPhoto, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                            Command="{Binding DataContext.LoadPhotoCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+                                    </StackPanel>
+
+                                    <Grid Grid.Column="1" Margin="80 0 0 0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+
+                                        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0 50 0 0" HorizontalAlignment="Left" VerticalAlignment="Top" >
+                                            <TextBlock Text="Название автомастерской" FontSize="23" FontWeight="DemiBold" Margin="0 0 10 0"/>
+                                            <TextBox Text="{Binding Name}" FontSize="23" FontWeight="DemiBold" Foreground="Green"/>
+                                        </StackPanel>
+
+                                        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0 20 0 0">
+                                            <TextBlock Text="Баланс" FontSize="20" Margin="0 0 25 0"/>
+                                            <TextBlock Text="{Binding Balance, StringFormat=N0}" FontSize="20" Foreground="Green" Margin="25 0 0 0"/>
+                                            <TextBlock Text=" ₽" FontSize="20" VerticalAlignment="Center"/>
+                                        </StackPanel>
+
+                                        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0 20 0 0">
+                                            <TextBlock Text="Адрес" FontSize="20" Margin="0 0 25 0"/>
+                                            <TextBox Text="{Binding Adress}" FontSize="20" Foreground="Green" Margin="25 0 0 0" TextWrapping="Wrap"/>
+                                        </StackPanel>
+
+                                        <Button Style="{StaticResource ButtonStyle}" Width="150" Height="30" Grid.Row="3" Margin="30 30 0 0" Content="Изменить данные"
+                                                Command="{Binding DataContext.EditWorkShopCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                CommandParameter="{Binding}"/>
+                                    </Grid>
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Border>
+    </ScrollViewer>
+</UserControl>

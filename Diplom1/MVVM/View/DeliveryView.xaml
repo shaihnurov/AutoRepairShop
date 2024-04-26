@@ -1,0 +1,130 @@
+﻿<UserControl x:Class="Diplom1.MVVM.View.DeliveryView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:viewModel="clr-namespace:Diplom1.MVVM.ViewModel"
+             xmlns:local="clr-namespace:Diplom1.MVVM.View"
+             mc:Ignorable="d" d:Background="White" Style="{StaticResource Page_Style}"
+             d:DesignHeight="850" d:DesignWidth="1200">
+
+    <UserControl.DataContext>
+        <viewModel:DeliveryViewModel/>
+    </UserControl.DataContext>
+
+    <ScrollViewer VerticalScrollBarVisibility="Hidden" Margin="0 80 0 0">
+        <Border>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.ColumnSpan="1">
+                    <TextBlock Text="{Binding GetMessage.Message}" HorizontalAlignment="Right" VerticalAlignment="Top"
+                   Foreground="{Binding GetMessage.TextColor}" TextWrapping="Wrap" Height="Auto"
+                   FontSize="20" FontWeight="Light" FontFamily="Montserrat" Grid.Row="0"/>
+                </StackPanel>
+
+                <Grid Grid.Row="0">
+                    <StackPanel Orientation="Vertical" Grid.Row="1" Grid.ColumnSpan="2">
+                        <ItemsControl ItemsSource="{Binding DeliveryModel}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal" Width="Auto" HorizontalAlignment="Center"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BorderThickness="0.2" BorderBrush="Black" Background="Transparent" CornerRadius="20"
+                                            Margin="0 50 0 0" Style="{StaticResource BorderAnimation}" MinWidth="1200" Height="260">
+                                        <StackPanel Orientation="Horizontal">
+
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <StackPanel Grid.Row="0" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                    <Image Source="{Binding Image}" Width="200" Height="200" Margin="20 0 0 0" Grid.Column="0"
+                                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                                        <TextBlock Text="{Binding Make}" FontSize="18" Foreground="Gray"/>
+                                                        <TextBlock Text="{Binding Articul}" FontSize="18" Margin="10 0 0 0" Foreground="Gray" TextWrapping="Wrap"/>
+                                                    </StackPanel>
+                                                </StackPanel>
+
+                                                <Grid Grid.Column="1" Margin="80 0 0 0">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                    </Grid.RowDefinitions>
+
+                                                    <TextBlock Text="{Binding Name}" FontSize="23" HorizontalAlignment="Center" VerticalAlignment="Top" 
+                                                       TextWrapping="Wrap" Margin="0 50 0 0" FontWeight="DemiBold" Width="340" Grid.Row="0"/>
+
+                                                    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0 20 0 0">
+                                                        <TextBlock Text="Количество" FontSize="18" Margin="0 0 25 0"/>
+                                                        <TextBlock Text="{Binding Amount}" FontSize="18" Foreground="Green" Margin="25 0 0 0"/>
+                                                    </StackPanel>
+
+                                                    <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0 15 0 0">
+                                                        <TextBlock Text="Стоимость" FontSize="18" Margin="0 0 25 0"/>
+                                                        <TextBlock Text="{Binding Price}" FontSize="18" Foreground="Green" Margin="25 0 0 0"/>
+                                                        <TextBlock Text=" ₽" FontSize="18" Margin="0 0 25 0"/>
+                                                    </StackPanel>
+
+                                                    <StackPanel Grid.Row="3" Orientation="Horizontal">
+                                                        <TextBlock Text="Номер доставки" FontSize="18" Margin="0 0 10 0"/>
+                                                        <TextBlock Text="{Binding Id}" FontSize="18" Foreground="Green"/>
+                                                    </StackPanel>
+                                                </Grid>
+
+                                                <Grid Grid.Column="2" Margin="30 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                    </Grid.RowDefinitions>
+
+                                                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0 50 0 0">
+                                                        <TextBlock Text="Дата покупки" FontSize="18" Foreground="Green"/>
+                                                        <TextBlock Text="{Binding Date}" FontSize="18" Margin="10 0 0 0" Foreground="Gray" TextWrapping="Wrap"/>
+                                                    </StackPanel>
+
+                                                    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0 20 0 0">
+                                                        <TextBlock Text="Примерная дата доставки" FontSize="18" Foreground="Green"/>
+                                                        <TextBlock Text="{Binding DateDelivery}" FontSize="18" Margin="10 0 0 0" Foreground="Gray" TextWrapping="Wrap"/>
+                                                    </StackPanel>
+
+                                                    <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0 20 0 0">
+                                                        <TextBlock Text="Адрес доставки" FontSize="18" Foreground="Green"/>
+                                                        <TextBlock Text="{Binding DataContext.Adress, RelativeSource={RelativeSource AncestorType=UserControl}}" FontSize="18" Margin="10 0 0 0" 
+                                                                   Foreground="Gray" TextWrapping="Wrap"/>
+                                                    </StackPanel>
+
+                                                    <Button Style="{StaticResource ButtonStyle}" Width="150" Height="35" Grid.Row="3" Margin="0 35 0 0" 
+                                                            Content="Отменить доставку" Command="{Binding DataContext.DeleteDeliveryCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                            CommandParameter="{Binding}"/>
+                                                </Grid>
+                                            </Grid>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                    
+                    <WrapPanel HorizontalAlignment="Center" Visibility="{Binding StatusTitleBarDelivery}" Margin="10 20 0 0">
+                        <TextBlock Text="Не смогли найти активных заказов :(" FontSize="18" Foreground="OrangeRed"/>
+                    </WrapPanel>
+                </Grid>
+            </Grid>
+        </Border>
+    </ScrollViewer>
+</UserControl>

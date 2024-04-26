@@ -1,0 +1,46 @@
+﻿<Application x:Class="Diplom1.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:view="clr-namespace:Diplom1.MVVM.View"
+             xmlns:viewModel="clr-namespace:Diplom1.MVVM.ViewModel"
+             StartupUri="/MVVM/View/MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes/MainStyle.xaml"/>
+
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate DataType="{x:Type viewModel:MainViewModel}">
+                <view:MainWindow/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:CatalogViewModel}">
+                <view:CatalogView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:WorkShopViewModel}">
+                <view:WorkShopView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:HistoryViewModel}">
+                <view:HistoryView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:SelectionSparesViewModel}">
+                <view:SelectionSparesView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:DeliveryViewModel}">
+                <view:DeliveryView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:InfoWorkShopViewModel}">
+                <view:InfoWorkShopView/>
+            </DataTemplate>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
