@@ -1,0 +1,242 @@
+﻿<UserControl x:Class="Diplom1.MVVM.View.SelectionSparesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:viewModel="clr-namespace:Diplom1.MVVM.ViewModel"
+             mc:Ignorable="d" d:Background="White"
+             d:DesignHeight="850" d:DesignWidth="1200" Style="{StaticResource Page_Style}">
+
+    <UserControl.DataContext>
+        <viewModel:SelectionSparesViewModel/>
+    </UserControl.DataContext>
+
+    <ScrollViewer VerticalScrollBarVisibility="Hidden">
+        <Border>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.ColumnSpan="1">
+                    <TextBlock Text="{Binding GetMessage.Message}" HorizontalAlignment="Right" VerticalAlignment="Top"
+                               Foreground="{Binding GetMessage.TextColor}" Margin="0 50 0 0"
+                               FontSize="20" FontWeight="Light" FontFamily="Montserrat" Grid.Row="0"/>
+                </StackPanel>
+
+                <StackPanel Margin="0 30 0 0" Grid.Row="0"  HorizontalAlignment="Left">
+                    <TextBlock Text="Подбор автозапчастей" FontSize="40" FontWeight="Light"/>
+                </StackPanel>
+
+                <Grid Grid.Row="1" Margin="0 30 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="450"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Orientation="Vertical">
+                        <TextBlock Text="Пожалуйста, выберите марку автомобиля" FontSize="20"/>
+
+                        <WrapPanel HorizontalAlignment="Left" Orientation="Horizontal" Margin="0 20 0 0">
+                            <ItemsControl ItemsSource="{Binding Cars}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal" Width="450"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border BorderThickness="0" BorderBrush="Transparent" Background="Transparent" 
+                                                Style="{StaticResource BorderAnimation}">
+                                            <StackPanel Orientation="Vertical">
+                                                <Grid>
+                                                    <Button Style="{StaticResource ButtonStyle}" Margin="5 0 0 0" Background="Transparent"
+                                                    Command="{Binding DataContext.EditMakeCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                    CommandParameter="{Binding}">
+
+                                                        <Image Source="{Binding Image}" Width="100" Height="100"/>
+                                                    </Button>
+                                                </Grid>
+                                            </StackPanel>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </WrapPanel>
+
+                        <WrapPanel HorizontalAlignment="Left" Orientation="Horizontal" Margin="0 20 0 0">
+                            <ItemsControl ItemsSource="{Binding CarsModel}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal" Width="450"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border BorderThickness="0" BorderBrush="Transparent" Background="Transparent" Margin="0 10 0 0"
+                                        Style="{StaticResource BorderAnimation}">
+                                            <StackPanel Orientation="Vertical">
+                                                <Image Source="{Binding Image}" Width="200" Height="200" Margin="0 0 0 -10"/>
+                                                <Grid>
+                                                    <Button Style="{StaticResource ButtonStyle}" Width="100" Height="25"
+                                                    Content="{Binding NameModel}" Margin="5 -30 0 0"
+                                                    Command="{Binding DataContext.EditSparesCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                    CommandParameter="{Binding}"/>
+                                                </Grid>
+                                            </StackPanel>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </WrapPanel>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Center">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <StackPanel Grid.Row="0">
+                                <WrapPanel Orientation="Horizontal" Visibility="{Binding StatusTitleBarSpares}">
+                                    <TextBlock Text="Для автомобиля " FontSize="18" Margin="15 0 0 0"/>
+                                    <TextBlock Text="{Binding SelectedCarModel}" FontSize="18" Foreground="Green"/>
+                                    <TextBlock Text=" в автомастерской " FontSize="18"/>
+                                    <TextBlock Text="{Binding WorkShopName}" FontSize="18" Foreground="Green"/>
+                                    <TextBlock Text=" доступны данные запчасти" FontSize="18"/>
+                                </WrapPanel>
+
+                                <WrapPanel VerticalAlignment="Center" Margin="50 5 0 0" Visibility="{Binding StatusCountSparesWorkShop}">
+                                    <TextBlock Text="Запчасти для данного автомобиля отсутствуют в автомастерской" FontSize="18" 
+                                               Foreground="Pink"/>
+                                </WrapPanel>
+
+                                <StackPanel Orientation="Vertical" Grid.Row="1" Grid.ColumnSpan="2">
+                                    <ItemsControl ItemsSource="{Binding Spares}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel Orientation="Horizontal" Width="1200"/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border BorderThickness="0.2" BorderBrush="LightGray" Background="Transparent" CornerRadius="20"
+                                                        Margin="30 0 0 30" Style="{StaticResource BorderAnimation}" Width="300" Height="400">
+                                                    <StackPanel Orientation="Vertical">
+                                                        <Image Source="{Binding Image}" Width="200" Height="200"/>
+                                                        <TextBlock Text="{Binding Name}" FontSize="18" Margin="15 0 0 0" TextWrapping="Wrap"/>
+
+                                                        <Grid>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="Auto"/>
+                                                                <RowDefinition Height="Auto"/>
+                                                                <RowDefinition Height="Auto"/>
+                                                            </Grid.RowDefinitions>
+
+                                                            <StackPanel Grid.Row="0" Margin="0 20 0 0" Orientation="Horizontal">
+                                                                <TextBlock Text="Количество" FontSize="18" Margin="75 0 25 0"/>
+                                                                <TextBlock Text="{Binding Amount}" FontSize="18" Foreground="Green" Margin="25 0 0 0"/>
+                                                            </StackPanel>
+
+
+                                                            <StackPanel Grid.Row="1" Margin="0 5 0 0" HorizontalAlignment="Center">
+                                                                <Button Style="{StaticResource ButtonStyle}" Width="95" Height="25" Content="Использовать"
+                                        Command="{Binding DataContext.SelectedSparesUse, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                        CommandParameter="{Binding}"/>
+                                                            </StackPanel>
+
+                                                            <StackPanel Grid.Row="2" Margin="0 20 0 0" Orientation="Horizontal">
+                                                                <TextBlock Text="{Binding Make}" FontSize="18" Margin="30 0 25 0" Foreground="Gray"/>
+                                                                <TextBlock Text="{Binding Articul}" FontSize="18" Margin="50 0 0 0" Foreground="Gray" TextWrapping="Wrap"/>
+                                                            </StackPanel>
+                                                        </Grid>
+                                                    </StackPanel>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="1">
+                                <WrapPanel Orientation="Horizontal" Visibility="{Binding StatusTitleBarSpares}" Margin="0 15 0 0">
+                                    <TextBlock Text="Для автомобиля " FontSize="18" Margin="15 0 0 0"/>
+                                    <TextBlock Text="{Binding SelectedCarModel}" FontSize="18" Foreground="Green"/>
+                                    <TextBlock Text=" в автомастерской " FontSize="18"/>
+                                    <TextBlock Text="{Binding WorkShopName}" FontSize="18" Foreground="Green"/>
+                                    <TextBlock Text=" отсутствуют следующие запчасти, которые можно заказать со склада" FontSize="18"/>
+                                </WrapPanel>
+
+                                <WrapPanel VerticalAlignment="Center" Margin="50 5 0 0" Visibility="{Binding StatusCountSparesShop}">
+                                    <TextBlock Text="Запчасти для данного автомобиля отсутствуют на складе для покупки" FontSize="18" 
+                                               Foreground="Pink"/>
+                                </WrapPanel>
+
+                                <StackPanel Orientation="Vertical" Grid.Row="1" Grid.ColumnSpan="2">
+                                    <ItemsControl ItemsSource="{Binding SparesShop}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel Orientation="Horizontal" Width="1200"/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border BorderThickness="0.2" BorderBrush="LightGray" Background="Transparent" CornerRadius="20"
+                                                        Margin="30 0 0 30" Style="{StaticResource BorderAnimation}" Width="300" Height="400">
+                                                    <StackPanel Orientation="Vertical">
+                                                        <Image Source="{Binding Image}" Width="200" Height="200"/>
+                                                        <TextBlock Text="{Binding Name}" FontSize="18" Margin="15 0 0 0" TextWrapping="Wrap"/>
+
+                                                        <Grid>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="Auto"/>
+                                                                <RowDefinition Height="Auto"/>
+                                                                <RowDefinition Height="Auto"/>
+                                                            </Grid.RowDefinitions>
+
+                                                            <StackPanel Grid.Row="0" Margin="0 20 0 0" Orientation="Horizontal">
+                                                                <TextBlock Text="Количество" FontSize="18" Margin="75 0 25 0"/>
+                                                                <TextBlock Text="{Binding Amount}" FontSize="18" Foreground="Green" Margin="25 0 0 0"/>
+                                                            </StackPanel>
+
+
+                                                            <StackPanel Grid.Row="1" Margin="0 5 0 0" Orientation="Horizontal">
+                                                                <StackPanel Orientation="Horizontal" Margin="50 0 25 0">
+                                                                    <TextBlock Text="{Binding Price, StringFormat=N0}" FontSize="20" Foreground="Green" FontWeight="Medium"/>
+                                                                    <TextBlock Text=" ₽" FontSize="20" Foreground="Green" FontWeight="Medium"/>
+                                                                </StackPanel>
+
+                                                                <Button Style="{StaticResource ButtonStyle}" Width="95" Height="25" Content="Заказать" Margin="25 0 0 0"
+                                                                        Command="{Binding DataContext.PayCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                                        CommandParameter="{Binding}"/>
+                                                            </StackPanel>
+
+                                                            <StackPanel Grid.Row="2" Margin="0 20 0 0" Orientation="Horizontal">
+                                                                <TextBlock Text="{Binding Make}" FontSize="18" Margin="30 0 25 0" Foreground="Gray"/>
+                                                                <TextBlock Text="{Binding Articul}" FontSize="18" Margin="50 0 0 0" Foreground="Gray" TextWrapping="Wrap"/>
+                                                            </StackPanel>
+                                                        </Grid>
+                                                    </StackPanel>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Border>
+    </ScrollViewer>
+</UserControl>

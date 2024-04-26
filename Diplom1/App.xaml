@@ -1,0 +1,34 @@
+﻿<Application x:Class="Diplom1.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:view="clr-namespace:Diplom1.MVVM.View"
+             xmlns:viewModel="clr-namespace:Diplom1.MVVM.ViewModel"
+             StartupUri="/MVVM/View/MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes/MainStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate DataType="{x:Type viewModel:MainViewModel}">
+                <view:MainWindow/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:CatalogViewModel}">
+                <view:CatalogView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:WorkShopViewModel}">
+                <view:WorkShopView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:HistoryViewModel}">
+                <view:HistoryView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:SelectionSparesViewModel}">
+                <view:SelectionSparesView/>
+            </DataTemplate>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
